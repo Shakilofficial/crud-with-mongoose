@@ -72,6 +72,17 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+
+// Delete all todos with status 'inactive'
+router.delete("/inactive", async (req, res) => {
+  try {
+    await Todo.deleteMany({ status: "inactive" });
+    res.status(200).json({ message: "All inactive todos were deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "There was a server side error!" });
+  }
+});
+
 // DELETE A TODO
 router.delete("/:id", async (req, res) => {
   try {
@@ -81,5 +92,7 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ error: "There was a server side error!" });
   }
 });
+
+
 
 module.exports = router;
